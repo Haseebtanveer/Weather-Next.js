@@ -4,7 +4,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { format, parseISO } from "date-fns";
 import Time from "../components/Time";
 import axios from "axios";
-
+//
 import { loadingCityAtom, placeAtom } from "@/utils/atom";
 import { useAtom } from "jotai";
 

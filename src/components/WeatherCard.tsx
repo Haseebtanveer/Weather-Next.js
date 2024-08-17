@@ -3,7 +3,7 @@ import { PiMapPinSimpleArea } from "react-icons/pi";
 import { WiDayWindy, WiNightAltSleetStorm, WiHumidity } from "react-icons/wi";
 import Image from "next/image";
 import { format, parseISO } from "date-fns";
-import { getDayOrNightIcon } from "@/utils/convertTemper";
+import { getDayOrNightIcon,convertTemper } from "@/utils/convertTemper";
 import WeatherIcon from "../components/WeatherIcon";
 
 interface WeatherCardProps {
@@ -86,20 +86,25 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
       <div className="flex h-full w-full flex-col gap-14 rounded-xl border-opacity-50 bg-teal-600 p-5">
         <div className="relative w-full flex justify-center">
           <div className="flex gap-4 sm:gap-8 md:gap-10 lg:gap-16 overflow-x-auto justify-between pr-3 w-full sm:w-3/4 lg:w-11/12">
-            {weatherData?.list.map((d: any, i: any) => (
-              <div
-                key={i}
-                className="flex flex-col justify-between gap-2 items-center text-xs sm:text-sm md:text-base font-semibold"
-              >
-                <p className="whitespace-nowrap text-slate-200">
-                  {format(parseISO(d.dt_txt), "h:mm a")}
-                </p>
-                <WeatherIcon
-                  iconName={getDayOrNightIcon(d.weather[0].icon, d.dt_txt)}
-                />
-                <p className="text-slate-200">{temperature}°</p>
-              </div>
-            ))}
+          {weatherData?.list.map((d: any, i: any) => {
+  console.log(d); // This will log the value of 'd' for each iteration
+
+  return (
+    <div
+      key={i}
+      className="flex flex-col justify-between gap-2 items-center text-xs sm:text-sm md:text-base font-semibold"
+    >
+      <p className="whitespace-nowrap text-slate-200">
+        {format(parseISO(d.dt_txt), "h:mm a")}
+      </p>
+      <WeatherIcon
+        iconName={getDayOrNightIcon(d.weather[0].icon, d.dt_txt)}
+      />
+      <p className="text-slate-200">{convertTemper(d?.main?.temp)}°</p>
+    </div>
+  );
+})}
+
           </div>
         </div>
       </div>
